@@ -15,20 +15,24 @@ public class MoveBall : MonoBehaviour
     // Update is called once per frame
     void Update()
     { 
-        if (Input.GetKey("w")) {
-            rb.AddForce(new Vector3(0, 0, 1), ForceMode.Impulse);
-        }
+         Vector3 pos = transform.position;
+ 
+         if (Input.GetKey ("w")) {
+             pos.z += 10 * Time.deltaTime;
+         }
 
-        if (Input.GetKey("a")) {
-            rb.AddForce(new Vector3(-1, 0, 0), ForceMode.Impulse);
-        }
+         if (Input.GetKey ("s")) {
+             pos.z -= 10 * Time.deltaTime;
+         }
 
-        if (Input.GetKey("s")) {
-            rb.AddForce(new Vector3(0, 0, -1), ForceMode.Impulse);
-        }
+         if (Input.GetKey ("d")) {
+             pos.x += 10 * Time.deltaTime;
+         }
 
-        if (Input.GetKey("d")) {
-            rb.AddForce(new Vector3(1, 0, 0), ForceMode.Impulse);
-        }
+         if (Input.GetKey ("a")) {
+             pos.x -= 10 * Time.deltaTime;
+         }
+
+         transform.position = pos;
     }
 }
