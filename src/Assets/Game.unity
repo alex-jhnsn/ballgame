@@ -669,7 +669,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77f99350623cf439a869f29f6eafbeba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScoreText: {fileID: 0}
+  speed: 10
+  ScoreText: {fileID: 1750230950}
 --- !u!135 &1061682147
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -786,7 +787,7 @@ GameObject:
   - component: {fileID: 1750230951}
   - component: {fileID: 1750230950}
   m_Layer: 5
-  m_Name: Score
+  m_Name: ScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -808,8 +809,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87, y: -19}
-  m_SizeDelta: {x: 160, y: 50}
+  m_AnchoredPosition: {x: 108, y: -32}
+  m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1750230950
 MonoBehaviour:
@@ -842,7 +843,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: THOT
+  m_Text: SCORETEXT
 --- !u!222 &1750230951
 CanvasRenderer:
   m_ObjectHideFlags: 0

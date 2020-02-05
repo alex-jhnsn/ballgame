@@ -1,48 +1,40 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MoveBall : MonoBehaviour
 {
+    public float speed;
+    public Text ScoreText;
+
+    int score;
     Rigidbody rb;
     GameObject coinPrefab;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         rb = GetComponent<Rigidbody>();
         coinPrefab = Resources.Load("Coin") as GameObject;
-        // rb.AddForce(new Vector3(1, 0, 0), ForceMode.Impulse);
+        score = 0;
+        setScoreText();
     }
 
     // Update is called once per frame
-    void Update()
-    { 
-        Vector3 pos = transform.position;
- 
-        if (Input.GetKey ("w")) {
-            pos.z += 10 * Time.deltaTime;
-        }
+    void Update() { 
+        float moveHorizontal = Input.GetAxis ("Horizontal");
+        float moveVertical = Input.GetAxis ("Vertical");
 
-        if (Input.GetKey ("s")) {
-            pos.z -= 10 * Time.deltaTime;
-        }
+        Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
 
-        if (Input.GetKey ("d")) {
-            pos.x += 10 * Time.deltaTime;
-        }
-
-        if (Input.GetKey ("a")) {
-            pos.x -= 10 * Time.deltaTime;
-        }
-
-        transform.position = pos;
+        rb.AddForce (movement * speed);
     }
 
-    private void OnTriggerEnter(Collider c) {
-        
+    void OnTriggerEnter(Collider c) {
         if(c.gameObject.name == "Coin" || c.gameObject.name == "Coin(Clone)") {
             Destroy(c.gameObject);
+            score = score + 1;
+            setScoreText();
         }
 
         if(c.gameObject.name.Contains("Wall")) {
@@ -50,7 +42,13 @@ public class MoveBall : MonoBehaviour
             float y = 6.4F;
             float z = Random.Range(-3.29F, -20.96F);
             Quaternion rotation = Quaternion.Euler(0, 90, 90);
-            Instantiate(Resources.Load("Coin"), new Vector3(x, y, z), rotation);
+            Object go = Instantiate(Resources.Load("Coin"), new Vector3(x, y, z), rotation);
+            go.name = "Coin";
         }
+    }
+
+    void setScoreText()
+    {
+        this.ScoreText.text = "Score: " + score.ToString();
     }
 }
