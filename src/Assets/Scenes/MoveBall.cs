@@ -41,15 +41,16 @@ public class MoveBall : MonoBehaviour
 
     private void OnTriggerEnter(Collider c) {
         
-        if(c.gameObject.name == "Coin") {
+        if(c.gameObject.name == "Coin" || c.gameObject.name == "Coin(Clone)") {
             Destroy(c.gameObject);
         }
 
         if(c.gameObject.name.Contains("Wall")) {
-            int x = Random.Range(10, -10);
+            float x = Random.Range(-7.44F, 11);
             float y = 6.4F;
-            int z = Random.Range(10, -10);
-            Instantiate(Resources.Load("Coin"), new Vector3(x, y, z), new Quaternion());
+            float z = Random.Range(-3.29F, -20.96F);
+            Quaternion rotation = Quaternion.Euler(0, 90, 90);
+            Instantiate(Resources.Load("Coin"), new Vector3(x, y, z), rotation);
         }
     }
 }
