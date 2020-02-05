@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class MoveBall : MonoBehaviour
 {
     public float speed;
     public Text ScoreText;
+    public int CoinSpawn;
 
     int score;
     Rigidbody rb;
@@ -18,6 +20,7 @@ public class MoveBall : MonoBehaviour
         coinPrefab = Resources.Load("Coin") as GameObject;
         score = 0;
         setScoreText();
+        spawnCoins();
     }
 
     // Update is called once per frame
@@ -38,17 +41,37 @@ public class MoveBall : MonoBehaviour
         }
 
         if(c.gameObject.name.Contains("Wall")) {
-            float x = Random.Range(-7.44F, 11);
-            float y = 6.4F;
-            float z = Random.Range(-3.29F, -20.96F);
-            Quaternion rotation = Quaternion.Euler(0, 90, 90);
-            Object go = Instantiate(Resources.Load("Coin"), new Vector3(x, y, z), rotation);
-            go.name = "Coin";
+            destroyCoins();
+            spawnCoins();
         }
     }
 
-    void setScoreText()
-    {
+    void destroyCoins() {
+        var coins = Resources.FindObjectsOfTypeAll<GameObject>().Where(obj => obj.name == "Coin").ToList();
+        Debug.Log(coins.Count);
+        foreach (var coin in coins)
+        {
+            Destroy(coin);
+        }
+    }
+
+    void spawnCoins() {
+        for (int i = 0; i < CoinSpawn; i++)
+        {
+            spawnCoin();
+        }
+    }
+
+    void spawnCoin() {
+        float x = Random.Range(-7.44F, 11);
+        float y = 6.4F;
+        float z = Random.Range(-3.29F, -20.96F);
+        Quaternion rotation = Quaternion.Euler(0, 90, 90);
+        Object go = Instantiate(Resources.Load("Coin"), new Vector3(x, y, z), rotation);
+        go.name = "Coin";
+    }
+
+    void setScoreText() {
         this.ScoreText.text = "Score: " + score.ToString();
     }
 }
